@@ -8,9 +8,12 @@
     "build": "pnpm dlx tsx scripts/copy-readme.ts && pnpm -r --filter=./packages/* run build",
     "play": "pnpm --filter ./playground run dev",
     "release": "bumpp -r",
-    "test": "vitest"
+    "test": "vitest",
+    "lint": "eslint ."
   },
   "devDependencies": {
+    "@eslint/compat": "catalog:",
+    "@eslint/js": "catalog:",
     "@types/node": "catalog:",
     "@unocss/core": "catalog:",
     "@unocss/preset-mini": "catalog:",
@@ -18,6 +21,7 @@
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
     "unbuild": "catalog:",
     "unocss-preset-material": "workspace:^",
     "vitest": "catalog:"

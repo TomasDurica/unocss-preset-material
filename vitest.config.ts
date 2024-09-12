@@ -7,7 +7,7 @@ const resolvePackage = (name: string) => {
 
 export default defineConfig({
   optimizeDeps: {
-    entries: [],
+    entries: []
   },
   resolve: {
     alias: {
