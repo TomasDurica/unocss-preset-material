@@ -1,7 +1,7 @@
 {
   "name": "unocss-preset-material",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Material design interop with UnoCSS",
   "author": "Tomas Durica",
   "license": "MIT",
