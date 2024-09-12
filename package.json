@@ -1,0 +1,25 @@
+{
+  "name": "@unocss-preset-material/repository",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.10.0",
+  "scripts": {
+    "build": "pnpm dlx tsx scripts/copy-readme.ts && pnpm -r --filter=./packages/* run build",
+    "play": "pnpm --filter ./playground run dev",
+    "release": "bumpp -r",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@unocss/core": "catalog:",
+    "@unocss/preset-mini": "catalog:",
+    "bumpp": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "unbuild": "catalog:",
+    "unocss-preset-material": "workspace:^",
+    "vitest": "catalog:"
+  }
+}

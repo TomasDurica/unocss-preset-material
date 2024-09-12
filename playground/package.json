@@ -1,0 +1,27 @@
+{
+  "name": "playground",
+  "type": "module",
+  "version": "0.0.0",
+  "private": "true",
+  "scripts": {
+    "dev": "vite --open",
+    "build": "vite build",
+    "serve": "vite serve"
+  },
+  "dependencies": {
+    "vue": "catalog:"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "catalog:",
+    "@unocss/reset": "catalog:",
+    "@unocss/vite": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "@vue/eslint-config-prettier": "catalog:",
+    "@vue/eslint-config-typescript": "catalog:",
+    "@vue/tsconfig": "catalog:",
+    "eslint-plugin-vue": "catalog:",
+    "unocss": "catalog:",
+    "vite": "catalog:",
+    "vue-tsc": "catalog:"
+  }
+}

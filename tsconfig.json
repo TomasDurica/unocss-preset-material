@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "jsx": "preserve",
+    "lib": ["esnext"],
+    "module": "esnext",
+    "moduleResolution": "Bundler",
+    "paths": {
+      "unocss-preset-material": ["./packages/unocss-preset-material/src/index.ts"]
+    },
+    "resolveJsonModule": true,
+    "types": [
+      "node",
+      "vitest/importMeta"
+    ],
+    "strict": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "**/dist/**",
+    "**/node_modules/**",
+    "**/playground/**"
+  ]
+}
