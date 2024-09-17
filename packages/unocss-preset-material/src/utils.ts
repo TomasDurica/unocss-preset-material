@@ -38,7 +38,7 @@ export const themeColorNames = [
 
 export type ThemeColorName = (typeof themeColorNames)[number]
 
-export const getCssVariable = (colorName: ThemeColorName, prefix: string = '') => {
+export const getCssVariable = (colorName: ThemeColorName, prefix: string = 'md-sys-colors-') => {
   return `--${prefix}${colorName}`
 }
 

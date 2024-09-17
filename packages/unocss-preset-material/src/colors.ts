@@ -34,8 +34,7 @@ export type PresetMaterialColorOptions = {
 }
 
 const defaultOptions: PresetMaterialColorOptions = {
-  colorPrefix: '',
-  cssVariablePrefix: 'md-sys-colors-'
+  colorPrefix: ''
 }
 
 export const presetMaterialColors = definePreset((options: PresetMaterialColorOptions = {}): Preset => {
