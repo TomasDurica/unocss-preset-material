@@ -14,7 +14,7 @@ describe('preset-material-shapes', () => {
   it('generates css rules for `shape-full`', async () => {
     expect(await generateCss('shape-full')).toMatchInlineSnapshot(`
       "/* layer: default */
-      .shape-full{border-radius:100%;}"
+      .shape-full{border-radius:9999px;}"
     `)
   })
 

@@ -32,7 +32,7 @@ export const presetMaterialShapes = definePreset((options: PresetMaterialShapesO
   return {
     name: 'unocss-preset-material-shapes',
     rules: [
-      ['shape-full', { 'border-radius': '100%' }],
+      ['shape-full', { 'border-radius': '9999px' }],
       ['shape-none', { 'border-radius': '0' }],
       ...Object.entries(mergedOptions.scale).map(([scale, size]) => shapeFull(scale, size)),
       ...(mergedOptions.includeDirectional ? Object.entries(mergedOptions.scale).flatMap(([scale, size]) => shapeDirectional(scale, size)) : [])
