@@ -1,4 +1,4 @@
-import type { DeepPartial, Preset } from '@unocss/core'
+import type { PresetOptions, Preset } from '@unocss/core'
 import type { PresetMaterialColorOptions } from './colors'
 import type { PresetMaterialShapesOptions } from './shapes'
 import type { PresetMaterialTypographyOptions } from './typography'
@@ -8,16 +8,16 @@ import { presetMaterialShapes } from './shapes'
 import { presetMaterialTypography } from './typography'
 
 type Enableable = {
-  enabled: boolean
+  enabled?: boolean
 }
 
-export type PresetMaterialOptions = {
-  colors: Enableable & PresetMaterialColorOptions
-  shapes: Enableable & PresetMaterialShapesOptions
-  typography: Enableable & PresetMaterialTypographyOptions
+export type PresetMaterialOptions = PresetOptions & {
+  colors?: Enableable & PresetMaterialColorOptions
+  shapes?: Enableable & PresetMaterialShapesOptions
+  typography?: Enableable & PresetMaterialTypographyOptions
 }
 
-const defaultOptions: PresetMaterialOptions = {
+const defaultOptions = {
   colors: {
     enabled: true
   },
@@ -29,15 +29,15 @@ const defaultOptions: PresetMaterialOptions = {
   }
 }
 
-export const presetMaterial = definePreset((options: DeepPartial<PresetMaterialOptions> = {}) => {
+export const presetMaterial = definePreset((options: PresetMaterialOptions = {}) => {
   const mergedOptions = mergeDeep(defaultOptions, options)
 
   return {
     name: 'unocss-preset-material',
     ...mergeConfigs([
-      mergedOptions.colors.enabled ? presetMaterialColors(mergedOptions.colors) : {},
-      mergedOptions.shapes.enabled ? presetMaterialShapes(mergedOptions.shapes) : {},
-      mergedOptions.typography.enabled ? presetMaterialTypography(mergedOptions.typography) : {}
+      mergedOptions.colors.enabled ? presetMaterialColors(mergedOptions.colors as PresetMaterialColorOptions) : {},
+      mergedOptions.shapes.enabled ? presetMaterialShapes(mergedOptions.shapes as PresetMaterialShapesOptions) : {},
+      mergedOptions.typography.enabled ? presetMaterialTypography(mergedOptions.typography as PresetMaterialTypographyOptions) : {}
     ])
   }
 })
