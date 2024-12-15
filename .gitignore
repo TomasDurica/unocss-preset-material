@@ -1,3 +1,4 @@
 node_modules
 dist
 packages/unocss-preset-material/README.md
+.idea
