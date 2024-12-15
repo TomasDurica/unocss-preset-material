@@ -29,7 +29,7 @@ const defaultOptions: PresetMaterialOptions = {
   }
 }
 
-export const presetMaterial = definePreset((options: DeepPartial<PresetMaterialOptions> = {}): Preset => {
+export const presetMaterial = definePreset((options: DeepPartial<PresetMaterialOptions> = {}) => {
   const mergedOptions = mergeDeep(defaultOptions, options)
 
   return {
