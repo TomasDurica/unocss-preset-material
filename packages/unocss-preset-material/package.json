@@ -26,9 +26,11 @@
     "@material/material-color-utilities": "catalog:"
   },
   "devDependencies": {
-    "@unocss/core": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "@unocss/core": "catalog:"
   }
 }
