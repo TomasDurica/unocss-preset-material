@@ -23,37 +23,32 @@ import { defineConfig, presetMini } from 'unocss'
 import { presetMaterial } from 'unocss-preset-material'
 
 export default defineConfig({
-  presets: [
-    presetMini(),
-    presetMaterial(),
-  ],
+  presets: [presetMini(), presetMaterial()],
 })
 ```
 
 Use Material colors and utilities in your markup:
 
 ```html
-<button class="bg-primary text-on-primary shape-md type-label-large elevation-1">
-  Click me
-</button>
+<button class="bg-primary text-on-primary shape-md type-label-large elevation-1">Click me</button>
 ```
 
 ## Configuration
 
 `presetMaterial()` accepts an optional `PresetMaterialOptions` object:
 
-| Option | Default | Description |
-| --- | --- | --- |
-| `themes` | `[{}]` | Theme definitions (seed colors, dark mode, CSS selector) |
-| `extendedColors` | — | Custom color roles beyond the Material system palette |
-| `paletteOptions` | — | Reference palette tones exposed as theme colors |
-| `colorPrefix` | `''` | Prefix for generated theme color names |
-| `systemColorCssVariablePrefix` | `'md-sys-colors-'` | CSS variable prefix for system colors |
-| `extendedColorCssVariablePrefix` | `'md-extended-colors-'` | CSS variable prefix for extended colors |
-| `paletteColorCssVariablePrefix` | `'md-ref-palette-'` | CSS variable prefix for palette tones |
-| `shapes` | `true` | Enable shape utilities, or pass `ShapesOptions` |
-| `typography` | `true` | Enable typography utilities, or pass `TypographyOptions` |
-| `elevation` | `true` | Enable elevation utilities |
+| Option                           | Default                 | Description                                              |
+| -------------------------------- | ----------------------- | -------------------------------------------------------- |
+| `themes`                         | `[{}]`                  | Theme definitions (seed colors, dark mode, CSS selector) |
+| `extendedColors`                 | —                       | Custom color roles beyond the Material system palette    |
+| `paletteOptions`                 | —                       | Reference palette tones exposed as theme colors          |
+| `colorPrefix`                    | `''`                    | Prefix for generated theme color names                   |
+| `systemColorCssVariablePrefix`   | `'md-sys-colors-'`      | CSS variable prefix for system colors                    |
+| `extendedColorCssVariablePrefix` | `'md-extended-colors-'` | CSS variable prefix for extended colors                  |
+| `paletteColorCssVariablePrefix`  | `'md-ref-palette-'`     | CSS variable prefix for palette tones                    |
+| `shapes`                         | `true`                  | Enable shape utilities, or pass `ShapesOptions`          |
+| `typography`                     | `true`                  | Enable typography utilities, or pass `TypographyOptions` |
+| `elevation`                      | `true`                  | Enable elevation utilities                               |
 
 ## Colors and themes
 
@@ -76,16 +71,16 @@ presetMaterial({
 
 Available theme options (`ThemeOptions` / `SystemColorsOptions`):
 
-| Option | Default | Description |
-| --- | --- | --- |
-| `primary` | `'#6750A4'` | Seed color (hex string, `{ hex }`, RGB, or LAB) |
-| `secondary`, `tertiary`, `neutral`, `neutralVariant`, `error` | — | Override individual palette sources |
-| `isDark` | `false` | Light or dark color scheme |
-| `contrastLevel` | `0` | Contrast adjustment (-1 to 1) |
-| `variant` | `'tonal-spot'` | Dynamic color variant |
-| `specVersion` | `'2025'` | Material spec version (`'2021'` or `'2025'`) |
-| `platform` | `'phone'` | Target platform (`'phone'` or `'watch'`) |
-| `selector` | `':root'` | CSS selector for the theme's CSS variables |
+| Option                                                        | Default        | Description                                     |
+| ------------------------------------------------------------- | -------------- | ----------------------------------------------- |
+| `primary`                                                     | `'#6750A4'`    | Seed color (hex string, `{ hex }`, RGB, or LAB) |
+| `secondary`, `tertiary`, `neutral`, `neutralVariant`, `error` | —              | Override individual palette sources             |
+| `isDark`                                                      | `false`        | Light or dark color scheme                      |
+| `contrastLevel`                                               | `0`            | Contrast adjustment (-1 to 1)                   |
+| `variant`                                                     | `'tonal-spot'` | Dynamic color variant                           |
+| `specVersion`                                                 | `'2025'`       | Material spec version (`'2021'` or `'2025'`)    |
+| `platform`                                                    | `'phone'`      | Target platform (`'phone'` or `'watch'`)        |
+| `selector`                                                    | `':root'`      | CSS selector for the theme's CSS variables      |
 
 Variants: `monochrome`, `neutral`, `tonal-spot`, `vibrant`, `expressive`, `fidelity`, `content`, `rainbow`, `fruit-salad`.
 
@@ -155,18 +150,18 @@ Default tones: `0, 5, 10, 15, 20, 25, 30, 35, 40, 50, 60, 70, 80, 90, 95, 98, 99
 
 Corner radius utilities based on Material shape tokens:
 
-| Class | Radius |
-| --- | --- |
-| `shape-none` | 0 |
-| `shape-xs` | 4px |
-| `shape-sm` | 8px |
-| `shape-md` | 12px |
-| `shape-lg` | 16px |
-| `shape-lg-inc` | 20px |
-| `shape-xl` | 28px |
-| `shape-xl-inc` | 32px |
-| `shape-xxl` | 48px |
-| `shape-full` | fully rounded |
+| Class          | Radius        |
+| -------------- | ------------- |
+| `shape-none`   | 0             |
+| `shape-xs`     | 4px           |
+| `shape-sm`     | 8px           |
+| `shape-md`     | 12px          |
+| `shape-lg`     | 16px          |
+| `shape-lg-inc` | 20px          |
+| `shape-xl`     | 28px          |
+| `shape-xl-inc` | 32px          |
+| `shape-xxl`    | 48px          |
+| `shape-full`   | fully rounded |
 
 Append a direction suffix for partial rounding: `-top`, `-bottom`, `-start`, `-end`, `-top-start`, `-top-end`, `-bottom-start`, `-bottom-end`.
 
@@ -191,13 +186,13 @@ Set `shapes: false` to disable shape utilities.
 
 Material type scale utilities (default prefix `type-`):
 
-| Category | Classes |
-| --- | --- |
-| Display | `type-display-large`, `type-display-medium`, `type-display-small` |
+| Category | Classes                                                              |
+| -------- | -------------------------------------------------------------------- |
+| Display  | `type-display-large`, `type-display-medium`, `type-display-small`    |
 | Headline | `type-headline-large`, `type-headline-medium`, `type-headline-small` |
-| Title | `type-title-large`, `type-title-medium`, `type-title-small` |
-| Body | `type-body-large`, `type-body-medium`, `type-body-small` |
-| Label | `type-label-large`, `type-label-medium`, `type-label-small` |
+| Title    | `type-title-large`, `type-title-medium`, `type-title-small`          |
+| Body     | `type-body-large`, `type-body-medium`, `type-body-small`             |
+| Label    | `type-label-large`, `type-label-medium`, `type-label-small`          |
 
 Customize fonts and prefix:
 
@@ -247,17 +242,17 @@ const variables = generateCssVariables({
 
 ### Exports
 
-| Export | Description |
-| --- | --- |
-| `presetMaterial` | Main UnoCSS preset factory |
-| `generateCssVariables` | Build a CSS variables map from theme options |
-| `createSystemColors` | Generate Material system color objects |
-| `createExtendedColors` | Generate extended color role objects |
-| `createReferencePaletteColors` | Generate reference palette tone objects |
-| `defaultSystemColorCssVariablePrefix` | Default system color CSS variable prefix |
-| `defaultExtendedColorCssVariablePrefix` | Default extended color CSS variable prefix |
-| `defaultPaletteColorCssVariablePrefix` | Default palette CSS variable prefix |
-| `defaultPaletteTones` | Default tonal palette steps |
+| Export                                  | Description                                  |
+| --------------------------------------- | -------------------------------------------- |
+| `presetMaterial`                        | Main UnoCSS preset factory                   |
+| `generateCssVariables`                  | Build a CSS variables map from theme options |
+| `createSystemColors`                    | Generate Material system color objects       |
+| `createExtendedColors`                  | Generate extended color role objects         |
+| `createReferencePaletteColors`          | Generate reference palette tone objects      |
+| `defaultSystemColorCssVariablePrefix`   | Default system color CSS variable prefix     |
+| `defaultExtendedColorCssVariablePrefix` | Default extended color CSS variable prefix   |
+| `defaultPaletteColorCssVariablePrefix`  | Default palette CSS variable prefix          |
+| `defaultPaletteTones`                   | Default tonal palette steps                  |
 
 Types are exported for `PresetMaterialOptions`, `ThemeOptions`, `SystemColorsOptions`, `ExtendedColorsOptions`, `PaletteOptions`, `ShapesOptions`, `TypographyOptions`, `Color`, `Variant`, and related interfaces.
 

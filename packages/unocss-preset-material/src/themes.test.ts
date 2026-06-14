@@ -410,9 +410,8 @@ describe('themes', () => {
     })
 
     test('should generate palette css variables with custom prefix', () => {
-      expect(
-        generateCssVariables({ paletteOptions: true, paletteColorCssVariablePrefix: 'tst-' }),
-      ).toMatchInlineSnapshot(`
+      expect(generateCssVariables({ paletteOptions: true, paletteColorCssVariablePrefix: 'tst-' }))
+        .toMatchInlineSnapshot(`
         {
           "--md-sys-colors-background": "253 247 254",
           "--md-sys-colors-error": "168 54 75",
@@ -576,9 +575,8 @@ describe('themes', () => {
     })
 
     test('should generate extended colors with palette css variables', () => {
-      expect(
-        generateCssVariables({ paletteOptions: true, extendedColors: { test: { color: '#ff00ff' } } }),
-      ).toMatchInlineSnapshot(`
+      expect(generateCssVariables({ paletteOptions: true, extendedColors: { test: { color: '#ff00ff' } } }))
+        .toMatchInlineSnapshot(`
         {
           "--md-extended-colors-on-test": "255 247 249",
           "--md-extended-colors-on-test-container": "99 57 94",
