@@ -1,16 +1,17 @@
 {
   "name": "@unocss-preset-material/repository",
-  "version": "0.1.4",
+  "version": "1.0.0-rc.1",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "pnpm -r build",
     "demo": "pnpm --filter=./apps/demo dev",
     "fmt": "oxfmt",
-    "release": "bumpp -r",
+    "release": "bumpp -r --preid rc",
     "test": "pnpm -r test"
   },
   "devDependencies": {
+    "bumpp": "catalog:",
     "oxfmt": "catalog:"
   },
   "packageManager": "pnpm@11.5.2"

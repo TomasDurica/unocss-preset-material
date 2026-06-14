@@ -1,6 +1,6 @@
 {
   "name": "unocss-preset-material",
-  "version": "0.1.4",
+  "version": "1.0.0-rc.1",
   "description": "Material design interop with UnoCSS",
   "keywords": [
     "material",
