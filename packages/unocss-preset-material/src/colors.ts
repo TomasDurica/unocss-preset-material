@@ -1,111 +1,333 @@
-import type { Preset } from '@unocss/core'
-import type { Color, ThemeColorName } from './utils'
-import { definePreset, mergeDeep } from '@unocss/core'
-import { themeColorNames, getCssVariable, fromHex } from './utils'
-import { DynamicScheme, Hct, TonalPalette, redFromArgb, greenFromArgb, blueFromArgb } from '@material/material-color-utilities'
+﻿import {
+  argbFromHex,
+  argbFromLab,
+  argbFromRgb,
+  Blend,
+  blueFromArgb,
+  DynamicScheme,
+  greenFromArgb,
+  Hct,
+  redFromArgb,
+  TonalPalette,
+  Variant as VariantEnum,
+} from '@material/material-color-utilities'
 
-type Theme = {
-  cssSelector?: string
+export type SystemPalette = 'primary' | 'secondary' | 'tertiary' | 'neutral' | 'neutral-variant' | 'error'
+
+export const defaultPaletteTones = [0, 5, 10, 15, 20, 25, 30, 35, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100] as const
+
+interface RGBColor {
+  r: number
+  g: number
+  b: number
+}
+
+export type Color = string | { hex: string } | RGBColor | { l: number; a: number; b: number }
+
+export type Variant =
+  | 'monochrome'
+  | 'neutral'
+  | 'tonal-spot'
+  | 'vibrant'
+  | 'expressive'
+  | 'fidelity'
+  | 'content'
+  | 'rainbow'
+  | 'fruit-salad'
+
+export interface SystemColorsOptions {
+  primary?: Color
+  secondary?: Color
+  tertiary?: Color
+  neutral?: Color
+  neutralVariant?: Color
+  error?: Color
   isDark?: boolean
-  // includePallettes?: boolean TODO: v1
-  colors?: {
-    primary: Color
-    secondary?: Color
-    tertiary?: Color
-    // error?: Color TODO: v0.2
-    neutral?: Color
-    neutralVariant?: Color
-    // custom?: Record<string, Color> TODO: v1
-  }
+  contrastLevel?: number
+  variant?: Variant
+  specVersion?: '2021' | '2025'
+  platform?: 'phone' | 'watch'
 }
 
-const defaultTheme: Required<Theme> = {
-  cssSelector: ':root',
-  isDark: false,
-  colors: {
-    primary: fromHex('#6750A4')
-  }
-}
-
-export type PresetMaterialColorOptions = {
-  colorPrefix?: string
-  cssVariablePrefix?: string
-  themes?: Theme[]
-}
-
-const defaultOptions: PresetMaterialColorOptions = {
-  colorPrefix: ''
-}
-
-export const presetMaterialColors = definePreset((options: PresetMaterialColorOptions = {}): Preset => {
-  const mergedOptions = mergeDeep(defaultOptions, options)
-  const themes = options.themes && options.themes.length ? options.themes : [defaultTheme]
+export const createSystemColors = (systemColorsOptions: SystemColorsOptions = {}): Record<string, RGBColor> => {
+  const scheme = createDynamicScheme(systemColorsOptions)
 
   return {
-    name: 'unocss-preset-material-colors',
-    theme: {
-      colors: Object.fromEntries(
-        themeColorNames.map((name) => [`${mergedOptions.colorPrefix}${name}`, `rgb(var(${getCssVariable(name, mergedOptions.cssVariablePrefix)}))`])
-      )
-    },
-    preflights: [
-      {
-        getCSS: () =>
-          themes
-            .map((theme) => {
-              const colors = Object.entries(themeColors(theme))
-                .map(([colorName, rgb]) => `${getCssVariable(colorName as ThemeColorName, mergedOptions.cssVariablePrefix)}:${rgb};`)
-                .join('')
-
-              return `${theme.cssSelector ?? defaultTheme.cssSelector} {${colors}}`
-            })
-            .join('\n')
-      }
-    ]
+    primary: argbToColor(scheme.primary),
+    'surface-tint': argbToColor(scheme.surfaceTint),
+    'on-primary': argbToColor(scheme.onPrimary),
+    'primary-container': argbToColor(scheme.primaryContainer),
+    'on-primary-container': argbToColor(scheme.onPrimaryContainer),
+    secondary: argbToColor(scheme.secondary),
+    'on-secondary': argbToColor(scheme.onSecondary),
+    'secondary-container': argbToColor(scheme.secondaryContainer),
+    'on-secondary-container': argbToColor(scheme.onSecondaryContainer),
+    tertiary: argbToColor(scheme.tertiary),
+    'on-tertiary': argbToColor(scheme.onTertiary),
+    'tertiary-container': argbToColor(scheme.tertiaryContainer),
+    'on-tertiary-container': argbToColor(scheme.onTertiaryContainer),
+    error: argbToColor(scheme.error),
+    'on-error': argbToColor(scheme.onError),
+    'error-container': argbToColor(scheme.errorContainer),
+    'on-error-container': argbToColor(scheme.onErrorContainer),
+    background: argbToColor(scheme.background),
+    'on-background': argbToColor(scheme.onBackground),
+    surface: argbToColor(scheme.surface),
+    'on-surface': argbToColor(scheme.onSurface),
+    'surface-variant': argbToColor(scheme.surfaceVariant),
+    'on-surface-variant': argbToColor(scheme.onSurfaceVariant),
+    outline: argbToColor(scheme.outline),
+    'outline-variant': argbToColor(scheme.outlineVariant),
+    shadow: argbToColor(scheme.shadow),
+    scrim: argbToColor(scheme.scrim),
+    'inverse-surface': argbToColor(scheme.inverseSurface),
+    'inverse-on-surface': argbToColor(scheme.inverseOnSurface),
+    'inverse-primary': argbToColor(scheme.inversePrimary),
+    'primary-fixed': argbToColor(scheme.primaryFixed),
+    'on-primary-fixed': argbToColor(scheme.onPrimaryFixed),
+    'primary-fixed-dim': argbToColor(scheme.primaryFixedDim),
+    'on-primary-fixed-variant': argbToColor(scheme.onPrimaryFixedVariant),
+    'secondary-fixed': argbToColor(scheme.secondaryFixed),
+    'on-secondary-fixed': argbToColor(scheme.onSecondaryFixed),
+    'secondary-fixed-dim': argbToColor(scheme.secondaryFixedDim),
+    'on-secondary-fixed-variant': argbToColor(scheme.onSecondaryFixedVariant),
+    'tertiary-fixed': argbToColor(scheme.tertiaryFixed),
+    'on-tertiary-fixed': argbToColor(scheme.onTertiaryFixed),
+    'tertiary-fixed-dim': argbToColor(scheme.tertiaryFixedDim),
+    'on-tertiary-fixed-variant': argbToColor(scheme.onTertiaryFixedVariant),
+    'surface-dim': argbToColor(scheme.surfaceDim),
+    'surface-bright': argbToColor(scheme.surfaceBright),
+    'surface-container-lowest': argbToColor(scheme.surfaceContainerLowest),
+    'surface-container-low': argbToColor(scheme.surfaceContainerLow),
+    'surface-container': argbToColor(scheme.surfaceContainer),
+    'surface-container-high': argbToColor(scheme.surfaceContainerHigh),
+    'surface-container-highest': argbToColor(scheme.surfaceContainerHighest),
   }
-})
+}
 
-const themeColors = (theme: Theme): Record<ThemeColorName, string> => {
-  const sourceColor = theme.colors?.primary ?? defaultTheme.colors.primary
-  const defaultHue = Hct.fromInt(sourceColor).hue
+export interface ExtendedColor {
+  color: Color
+  harmonize?: boolean
+  variant?: Variant
+}
 
-  const primaryPalette = theme.colors?.primary
-    ? TonalPalette.fromHueAndChroma(Hct.fromInt(theme.colors.primary).hue, 36)
-    : TonalPalette.fromHueAndChroma(defaultHue, 36)
+export type ExtendedColorsOptions<TExtendedColors extends string = string> = Record<TExtendedColors, ExtendedColor>
 
-  const secondaryPalette = theme.colors?.secondary
-    ? TonalPalette.fromHueAndChroma(Hct.fromInt(theme.colors.secondary).hue, 36)
-    : TonalPalette.fromHueAndChroma(defaultHue, 16)
+export const createExtendedColors = <TExtendedColors extends string>(
+  extendedColors: ExtendedColorsOptions<TExtendedColors>,
+  systemColorsOptions: SystemColorsOptions = {},
+): Record<string, RGBColor> => {
+  const result = {} as Record<string, RGBColor>
 
-  const tertiaryPalette = theme.colors?.tertiary
-    ? TonalPalette.fromHueAndChroma(Hct.fromInt(theme.colors.tertiary).hue, 36)
-    : TonalPalette.fromHueAndChroma((defaultHue + 60) % 360, 24)
+  for (const name in extendedColors) {
+    const scheme = createHarmonizedScheme(extendedColors[name], systemColorsOptions)
 
-  const neutralPalette = theme.colors?.primary
-    ? TonalPalette.fromHueAndChroma(Hct.fromInt(theme.colors.primary).hue, 6)
-    : TonalPalette.fromHueAndChroma(defaultHue, 6)
+    result[name] = argbToColor(scheme.primary)
+    result[`on-${name}`] = argbToColor(scheme.onPrimary)
+    result[`${name}-container`] = argbToColor(scheme.primaryContainer)
+    result[`on-${name}-container`] = argbToColor(scheme.onPrimaryContainer)
+  }
 
-  const neutralVariantPalette = theme.colors?.primary
-    ? TonalPalette.fromHueAndChroma(Hct.fromInt(theme.colors.primary).hue, 8)
-    : TonalPalette.fromHueAndChroma(defaultHue, 8)
+  return result
+}
 
-  const scheme = new DynamicScheme({
-    sourceColorArgb: sourceColor,
-    variant: 2,
-    contrastLevel: 0,
-    isDark: theme.isDark ?? defaultTheme.isDark,
-    primaryPalette,
-    secondaryPalette,
-    tertiaryPalette,
-    neutralPalette,
-    neutralVariantPalette
+export type Palette<TExtendedColors extends string = string> = Record<
+  SystemPalette | TExtendedColors,
+  readonly number[]
+>
+
+export type PaletteOptions<TExtendedColors extends string = string> =
+  | undefined
+  | boolean
+  | Partial<Palette<TExtendedColors>>
+  | ((palettes: Palette<TExtendedColors>) => Partial<Palette<TExtendedColors>>)
+
+export const createPaletteTones = <TExtendedColors extends string>(
+  extendedColors: ExtendedColorsOptions<TExtendedColors> | undefined,
+  paletteOptions?: PaletteOptions<TExtendedColors>,
+): Partial<Palette<TExtendedColors>> | undefined => {
+  if (!paletteOptions) {
+    return undefined
+  }
+
+  if (typeof paletteOptions === 'object') {
+    return paletteOptions
+  }
+
+  let palette = {
+    primary: defaultPaletteTones,
+    secondary: defaultPaletteTones,
+    tertiary: defaultPaletteTones,
+    neutral: defaultPaletteTones,
+    'neutral-variant': defaultPaletteTones,
+    error: defaultPaletteTones,
+  } as Palette<TExtendedColors>
+
+  if (extendedColors) {
+    for (const name in extendedColors) {
+      palette[name] = defaultPaletteTones
+    }
+  }
+
+  if (typeof paletteOptions === 'function') {
+    return paletteOptions(palette)
+  }
+
+  return palette
+}
+
+export const createReferencePaletteColors = <TExtendedColors extends string>(
+  systemColorsOptions: SystemColorsOptions = {},
+  extendedColors?: ExtendedColorsOptions<TExtendedColors>,
+  paletteOptions?: PaletteOptions<TExtendedColors>,
+): Record<string, RGBColor> => {
+  const tones = createPaletteTones(extendedColors, paletteOptions)
+
+  const result = {} as Record<string, RGBColor>
+
+  const scheme = createDynamicScheme(systemColorsOptions)
+
+  if (tones?.primary) {
+    for (const tone of tones.primary) {
+      result[`primary-${tone}`] = argbToColor(scheme.primaryPalette.tone(tone))
+    }
+  }
+
+  if (tones?.secondary) {
+    for (const tone of tones.secondary) {
+      result[`secondary-${tone}`] = argbToColor(scheme.secondaryPalette.tone(tone))
+    }
+  }
+
+  if (tones?.tertiary) {
+    for (const tone of tones.tertiary) {
+      result[`tertiary-${tone}`] = argbToColor(scheme.tertiaryPalette.tone(tone))
+    }
+  }
+
+  if (tones?.neutral) {
+    for (const tone of tones.neutral) {
+      result[`neutral-${tone}`] = argbToColor(scheme.neutralPalette.tone(tone))
+    }
+  }
+
+  if (tones?.['neutral-variant']) {
+    for (const tone of tones['neutral-variant']) {
+      result[`neutral-variant-${tone}`] = argbToColor(scheme.neutralVariantPalette.tone(tone))
+    }
+  }
+
+  if (tones?.error) {
+    for (const tone of tones.error) {
+      result[`error-${tone}`] = argbToColor(scheme.errorPalette.tone(tone))
+    }
+  }
+
+  for (const name in extendedColors) {
+    const extendedScheme = createHarmonizedScheme(extendedColors[name], systemColorsOptions)
+
+    if (tones?.[name]) {
+      for (const tone of tones[name]) {
+        result[`${name}-${tone}`] = argbToColor(extendedScheme.primaryPalette.tone(tone))
+      }
+    }
+  }
+
+  return result
+}
+
+const createDynamicScheme = ({
+  primary = '#6750A4',
+  secondary,
+  tertiary,
+  neutral,
+  neutralVariant,
+  error,
+  isDark = false,
+  contrastLevel = 0,
+  variant = 'tonal-spot',
+  specVersion = '2025',
+  platform = 'phone',
+}: SystemColorsOptions = {}) => {
+  return new DynamicScheme({
+    sourceColorHct: colorToHct(primary),
+    contrastLevel,
+    isDark,
+    secondaryPalette: secondary ? TonalPalette.fromHct(colorToHct(secondary)) : undefined,
+    tertiaryPalette: tertiary ? TonalPalette.fromHct(colorToHct(tertiary)) : undefined,
+    neutralPalette: neutral ? TonalPalette.fromHct(colorToHct(neutral)) : undefined,
+    neutralVariantPalette: neutralVariant ? TonalPalette.fromHct(colorToHct(neutralVariant)) : undefined,
+    errorPalette: error ? TonalPalette.fromHct(colorToHct(error)) : undefined,
+    variant: variantToVariantEnum(variant),
+    specVersion,
+    platform,
   })
+}
 
-  return Object.fromEntries(
-    themeColorNames.map((colorName) => {
-      const propertyName = colorName.replaceAll(/-(.)/g, (_, letter) => letter.toUpperCase())
-      const color = scheme[propertyName as 'primary'] ?? scheme.surface
-      return [colorName, `${redFromArgb(color)} ${greenFromArgb(color)} ${blueFromArgb(color)}`]
-    })
-  ) as Record<ThemeColorName, string>
+const createHarmonizedScheme = (
+  { color, harmonize = false, variant }: ExtendedColor,
+  {
+    primary = '#6750A4',
+    isDark = false,
+    contrastLevel = 0,
+    variant: themeVariant = 'tonal-spot',
+    specVersion = '2025',
+    platform = 'phone',
+  }: SystemColorsOptions = {},
+) => {
+  const sourceColorHct = harmonize
+    ? Hct.fromInt(Blend.harmonize(colorToArgb(color), colorToArgb(primary)))
+    : colorToHct(color)
+
+  return new DynamicScheme({
+    sourceColorHct,
+    contrastLevel,
+    isDark,
+    variant: variantToVariantEnum(variant ?? themeVariant),
+    specVersion,
+    platform,
+  })
+}
+
+const colorToArgb = (color: Color) => {
+  if (typeof color === 'string') {
+    return argbFromHex(color)
+  } else if ('hex' in color) {
+    return argbFromHex(color.hex)
+  } else if ('r' in color) {
+    return argbFromRgb(color.r, color.g, color.b)
+  } else {
+    return argbFromLab(color.l, color.a, color.b)
+  }
+}
+
+const colorToHct = (color: Color) => {
+  return Hct.fromInt(colorToArgb(color))
+}
+
+const argbToColor = (argb: number): RGBColor => {
+  return { r: redFromArgb(argb), g: greenFromArgb(argb), b: blueFromArgb(argb) }
+}
+
+const variantToVariantEnum = (value: Variant): VariantEnum => {
+  switch (value) {
+    case 'monochrome':
+      return VariantEnum.MONOCHROME
+    case 'neutral':
+      return VariantEnum.NEUTRAL
+    case 'tonal-spot':
+      return VariantEnum.TONAL_SPOT
+    case 'vibrant':
+      return VariantEnum.VIBRANT
+    case 'expressive':
+      return VariantEnum.EXPRESSIVE
+    case 'fidelity':
+      return VariantEnum.FIDELITY
+    case 'content':
+      return VariantEnum.CONTENT
+    case 'rainbow':
+      return VariantEnum.RAINBOW
+    case 'fruit-salad':
+      return VariantEnum.FRUIT_SALAD
+  }
 }
