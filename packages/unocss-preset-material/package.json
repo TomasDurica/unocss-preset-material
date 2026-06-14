@@ -1,39 +1,36 @@
 {
   "name": "unocss-preset-material",
-  "type": "module",
-  "version": "0.1.4",
+  "version": "1.0.0-rc.1",
   "description": "Material design interop with UnoCSS",
-  "author": "Tomas Durica",
-  "license": "MIT",
   "keywords": [
-    "unocss",
-    "unocss-preset",
     "material",
-    "material-design"
+    "material-design",
+    "unocss",
+    "unocss-preset"
   ],
+  "license": "MIT",
+  "author": "Tomas Durica",
+  "type": "module",
   "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
       "default": "./dist/index.mjs"
-    },
-    "./utils": {
-      "types": "./dist/utils.d.mts",
-      "default": "./dist/utils.mjs"
     }
   },
-  "main": "dist/index.mjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "files": [
-    "*.d.ts",
-    "dist"
-  ],
   "scripts": {
-    "build": "unbuild"
+    "build": "tsdown",
+    "test": "vitest --reporter=verbose"
   },
   "dependencies": {
-    "@unocss/core": "catalog:",
     "@material/material-color-utilities": "catalog:"
+  },
+  "devDependencies": {
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "@unocss/core": "catalog:"
   }
 }

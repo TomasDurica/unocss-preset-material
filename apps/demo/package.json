@@ -1,25 +1,23 @@
 {
   "name": "playground",
-  "type": "module",
-  "version": "0.1.4",
+  "version": "1.0.0-rc.1",
   "private": "true",
+  "type": "module",
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
     "serve": "vite serve"
   },
   "dependencies": {
+    "@iconify-json/material-symbols": "catalog:",
+    "@vueuse/core": "catalog:",
+    "unocss-preset-material": "workspace:",
     "vue": "catalog:"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "catalog:",
-    "@unocss/reset": "catalog:",
-    "@unocss/vite": "catalog:",
+    "@types/node": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
-    "@vue/eslint-config-prettier": "catalog:",
-    "@vue/eslint-config-typescript": "catalog:",
-    "@vue/tsconfig": "catalog:",
-    "eslint-plugin-vue": "catalog:",
+    "typescript": "catalog:",
     "unocss": "catalog:",
     "vite": "catalog:",
     "vue-tsc": "catalog:"

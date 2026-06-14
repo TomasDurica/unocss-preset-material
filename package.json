@@ -1,29 +1,18 @@
 {
   "name": "@unocss-preset-material/repository",
-  "type": "module",
-  "version": "0.1.4",
+  "version": "1.0.0-rc.1",
   "private": true,
-  "packageManager": "pnpm@9.10.0",
+  "type": "module",
   "scripts": {
-    "build": "pnpm dlx tsx scripts/copy-readme.ts && pnpm -r --filter=./packages/* run build",
-    "play": "pnpm --filter ./playground run dev",
-    "release": "bumpp -r",
-    "test": "vitest",
-    "lint": "eslint ."
+    "build": "pnpm -r build",
+    "demo": "pnpm --filter=./apps/demo dev",
+    "fmt": "oxfmt",
+    "release": "bumpp -r --preid rc",
+    "test": "pnpm -r test"
   },
   "devDependencies": {
-    "@eslint/compat": "catalog:",
-    "@eslint/js": "catalog:",
-    "@types/node": "catalog:",
-    "@unocss/core": "catalog:",
-    "@unocss/preset-mini": "catalog:",
     "bumpp": "catalog:",
-    "eslint": "catalog:",
-    "prettier": "catalog:",
-    "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
-    "unbuild": "catalog:",
-    "unocss-preset-material": "workspace:^",
-    "vitest": "catalog:"
-  }
+    "oxfmt": "catalog:"
+  },
+  "packageManager": "pnpm@11.5.2"
 }

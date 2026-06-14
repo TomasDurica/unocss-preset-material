@@ -1,38 +1,41 @@
 # unocss-preset-material
 
-> [!Warning]
-> This library is currently in version 0.x and its API may change frequently
+Monorepo for [unocss-preset-material](https://www.npmjs.com/package/unocss-preset-material) — a [UnoCSS](https://unocss.dev/) preset that brings [Material Design 3](https://m3.material.io/) colors, shapes, typography, and elevation to your utility-first CSS workflow.
 
-Material design 3 interoperability with unocss.
-Provides
+## Documentation
 
-- Colors with theming support (multiple color themes and light / dark scheme)
-- Shapes shorthands
-- Typography shorthands (Display, Headline, Title, Body and Label)
+Package API, configuration options, and usage examples:
 
-> [!Information]
-> Documentation is in progress
+**[unocss-preset-material documentation](./packages/unocss-preset-material/README.md)**
 
-## Playground
+## What's inside
 
-TODO
+| Path                                                                   | Description                                                          |
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| [`packages/unocss-preset-material`](./packages/unocss-preset-material) | The published npm package                                            |
+| [`apps/demo`](./apps/demo)                                             | Interactive Vue playground showcasing colors, shapes, and typography |
 
-## Installation
+## Demo
+
+Run the local playground to explore the preset in the browser:
 
 ```sh
-pnpm install unocss-preset-material
+pnpm install
+pnpm demo
 ```
 
-## Usage
+This starts the Vite dev server in `apps/demo` and opens it automatically.
 
-### Colors and Themes
+## Development
 
-TODO
+```sh
+pnpm install    # install dependencies
+pnpm build      # build all packages
+pnpm test       # run tests
+pnpm fmt        # format code
+pnpm release    # bump versions and publish (maintainers)
+```
 
-### Shapes
+## License
 
-TODO
-
-### Typography
-
-TODO
+MIT
