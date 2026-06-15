@@ -7,7 +7,7 @@
     "build": "pnpm -r build",
     "demo": "pnpm --filter=./apps/demo dev",
     "fmt": "oxfmt",
-    "release": "bumpp -r --preid rc",
+    "release": "bumpp -r --preid rc --push false",
     "test": "pnpm -r test"
   },
   "devDependencies": {
