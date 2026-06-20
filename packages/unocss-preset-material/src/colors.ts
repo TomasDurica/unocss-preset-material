@@ -8,7 +8,6 @@
   greenFromArgb,
   Hct,
   redFromArgb,
-  TonalPalette,
   Variant as VariantEnum,
 } from '@material/material-color-utilities'
 
@@ -16,7 +15,7 @@ export type SystemPalette = 'primary' | 'secondary' | 'tertiary' | 'neutral' | '
 
 export const defaultPaletteTones = [0, 5, 10, 15, 20, 25, 30, 35, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100] as const
 
-interface RGBColor {
+export interface RGBColor {
   r: number
   g: number
   b: number
@@ -70,8 +69,8 @@ export const createSystemColors = (systemColorsOptions: SystemColorsOptions = {}
     'on-error': argbToColor(scheme.onError),
     'error-container': argbToColor(scheme.errorContainer),
     'on-error-container': argbToColor(scheme.onErrorContainer),
-    background: argbToColor(scheme.background),
-    'on-background': argbToColor(scheme.onBackground),
+    background: argbToColor(scheme.surface), // Fix for the deprecated background color
+    'on-background': argbToColor(scheme.onSurface), // Fix for the deprecated on-background color
     surface: argbToColor(scheme.surface),
     'on-surface': argbToColor(scheme.onSurface),
     'surface-variant': argbToColor(scheme.surfaceVariant),
@@ -249,16 +248,63 @@ const createDynamicScheme = ({
   specVersion = '2025',
   platform = 'phone',
 }: SystemColorsOptions = {}) => {
+  const variantEnum = variantToVariantEnum(variant)
+
   return new DynamicScheme({
     sourceColorHct: colorToHct(primary),
     contrastLevel,
     isDark,
-    secondaryPalette: secondary ? TonalPalette.fromHct(colorToHct(secondary)) : undefined,
-    tertiaryPalette: tertiary ? TonalPalette.fromHct(colorToHct(tertiary)) : undefined,
-    neutralPalette: neutral ? TonalPalette.fromHct(colorToHct(neutral)) : undefined,
-    neutralVariantPalette: neutralVariant ? TonalPalette.fromHct(colorToHct(neutralVariant)) : undefined,
-    errorPalette: error ? TonalPalette.fromHct(colorToHct(error)) : undefined,
-    variant: variantToVariantEnum(variant),
+    secondaryPalette: secondary
+      ? new DynamicScheme({
+          sourceColorHct: colorToHct(secondary),
+          contrastLevel,
+          isDark,
+          variant: variantEnum,
+          specVersion,
+          platform,
+        }).primaryPalette
+      : undefined,
+    tertiaryPalette: tertiary
+      ? new DynamicScheme({
+          sourceColorHct: colorToHct(tertiary),
+          contrastLevel,
+          isDark,
+          variant: variantEnum,
+          specVersion,
+          platform,
+        }).primaryPalette
+      : undefined,
+    neutralPalette: neutral
+      ? new DynamicScheme({
+          sourceColorHct: colorToHct(neutral),
+          contrastLevel,
+          isDark,
+          variant: variantEnum,
+          specVersion,
+          platform,
+        }).neutralPalette
+      : undefined,
+    neutralVariantPalette: neutralVariant
+      ? new DynamicScheme({
+          sourceColorHct: colorToHct(neutralVariant),
+          contrastLevel,
+          isDark,
+          variant: variantEnum,
+          specVersion,
+          platform,
+        }).neutralVariantPalette
+      : undefined,
+    errorPalette: error
+      ? new DynamicScheme({
+          sourceColorHct: colorToHct(error),
+          contrastLevel,
+          isDark,
+          variant: variantEnum,
+          specVersion,
+          platform,
+        }).primaryPalette
+      : undefined,
+    variant: variantEnum,
     specVersion,
     platform,
   })

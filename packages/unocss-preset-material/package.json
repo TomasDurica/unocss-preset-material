@@ -23,7 +23,7 @@
   },
   "scripts": {
     "build": "tsdown",
-    "test": "vitest --reporter=verbose"
+    "test": "vitest"
   },
   "dependencies": {
     "@material/material-color-utilities": "catalog:"
