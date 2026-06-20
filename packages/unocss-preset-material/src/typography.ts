@@ -1,4 +1,4 @@
-import { Rule } from '@unocss/core'
+import { StaticShortcutMap } from '@unocss/core'
 
 export interface TypographyOptions {
   prefix?: string
@@ -6,33 +6,32 @@ export interface TypographyOptions {
   plain?: string
 }
 
-const getFontStyle = (font: string, weight: 400 | 500, size: number, height: number, spacing: number = 0) => {
+export const generateTypographyFontFamilies = ({
+  brand = '"Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
+  plain = '"Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
+}: TypographyOptions = {}): Record<string, string> => {
   return {
-    font: `${weight} ${size / 16}rem/${height / 16}rem ${font}`,
-    'letter-spacing': `${spacing / 16}rem`,
+    brand,
+    plain,
   }
 }
 
-export const createTypographyRules = ({
-  prefix = 'type-',
-  brand = '"Roboto", sans-serif',
-  plain = '"Roboto", sans-serif',
-}: TypographyOptions = {}): Rule[] => {
-  return [
-    [`${prefix}display-large`, getFontStyle(brand, 400, 57, 64, -0.25)],
-    [`${prefix}display-medium`, getFontStyle(brand, 400, 45, 52)],
-    [`${prefix}display-small`, getFontStyle(brand, 400, 36, 44)],
-    [`${prefix}headline-large`, getFontStyle(brand, 400, 32, 40)],
-    [`${prefix}headline-medium`, getFontStyle(brand, 400, 28, 36)],
-    [`${prefix}headline-small`, getFontStyle(brand, 400, 24, 32)],
-    [`${prefix}title-large`, getFontStyle(brand, 400, 22, 28)],
-    [`${prefix}title-medium`, getFontStyle(plain, 500, 16, 24, 0.15)],
-    [`${prefix}title-small`, getFontStyle(plain, 500, 14, 20, 0.1)],
-    [`${prefix}body-large`, getFontStyle(plain, 400, 16, 24, 0.5)],
-    [`${prefix}body-medium`, getFontStyle(plain, 400, 14, 20, 0.25)],
-    [`${prefix}body-small`, getFontStyle(plain, 400, 12, 16, 0.4)],
-    [`${prefix}label-large`, getFontStyle(plain, 500, 14, 20, 0.1)],
-    [`${prefix}label-medium`, getFontStyle(plain, 500, 12, 16, 0.5)],
-    [`${prefix}label-small`, getFontStyle(plain, 500, 11, 16, 0.5)],
-  ]
+export const createTypographyShortcuts = ({ prefix = `type-` }: TypographyOptions = {}): StaticShortcutMap => {
+  return {
+    [`${prefix}display-large`]: 'text-57px leading-16 tracking--0.25px font-400 font-brand',
+    [`${prefix}display-medium`]: 'text-45px leading-13 tracking-0 font-400 font-brand',
+    [`${prefix}display-small`]: 'text-9 leading-11 tracking-0 font-400 font-brand',
+    [`${prefix}headline-large`]: 'text-8 leading-10 tracking-0 font-400 font-brand',
+    [`${prefix}headline-medium`]: 'text-7 leading-9 tracking-0 font-400 font-brand',
+    [`${prefix}headline-small`]: 'text-6 leading-8 tracking-0 font-400 font-brand',
+    [`${prefix}title-large`]: 'text-5.5 leading-7 tracking-0 font-400 font-brand',
+    [`${prefix}title-medium`]: 'text-4 leading-6 tracking-0.15px font-500 font-plain',
+    [`${prefix}title-small`]: 'text-3.5 leading-5 tracking-0.1px font-500 font-plain',
+    [`${prefix}body-large`]: 'text-4 leading-6 tracking-0.5px font-400 font-plain',
+    [`${prefix}body-medium`]: 'text-3.5 leading-5 tracking-0.25px font-400 font-plain',
+    [`${prefix}body-small`]: 'text-3 leading-4 tracking-0.4px font-400 font-plain',
+    [`${prefix}label-large`]: 'text-3.5 leading-5 tracking-0.1px font-500 font-plain',
+    [`${prefix}label-medium`]: 'text-3 leading-4 tracking-0.5px font-500 font-plain',
+    [`${prefix}label-small`]: 'text-11px leading-4 tracking-0.5px font-500 font-plain',
+  }
 }

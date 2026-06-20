@@ -21,111 +21,6 @@ describe('preset', () => {
               },
             ],
             [
-              "type-display-large",
-              {
-                "font": "400 3.5625rem/4rem "Roboto", sans-serif",
-                "letter-spacing": "-0.015625rem",
-              },
-            ],
-            [
-              "type-display-medium",
-              {
-                "font": "400 2.8125rem/3.25rem "Roboto", sans-serif",
-                "letter-spacing": "0rem",
-              },
-            ],
-            [
-              "type-display-small",
-              {
-                "font": "400 2.25rem/2.75rem "Roboto", sans-serif",
-                "letter-spacing": "0rem",
-              },
-            ],
-            [
-              "type-headline-large",
-              {
-                "font": "400 2rem/2.5rem "Roboto", sans-serif",
-                "letter-spacing": "0rem",
-              },
-            ],
-            [
-              "type-headline-medium",
-              {
-                "font": "400 1.75rem/2.25rem "Roboto", sans-serif",
-                "letter-spacing": "0rem",
-              },
-            ],
-            [
-              "type-headline-small",
-              {
-                "font": "400 1.5rem/2rem "Roboto", sans-serif",
-                "letter-spacing": "0rem",
-              },
-            ],
-            [
-              "type-title-large",
-              {
-                "font": "400 1.375rem/1.75rem "Roboto", sans-serif",
-                "letter-spacing": "0rem",
-              },
-            ],
-            [
-              "type-title-medium",
-              {
-                "font": "500 1rem/1.5rem "Roboto", sans-serif",
-                "letter-spacing": "0.009375rem",
-              },
-            ],
-            [
-              "type-title-small",
-              {
-                "font": "500 0.875rem/1.25rem "Roboto", sans-serif",
-                "letter-spacing": "0.00625rem",
-              },
-            ],
-            [
-              "type-body-large",
-              {
-                "font": "400 1rem/1.5rem "Roboto", sans-serif",
-                "letter-spacing": "0.03125rem",
-              },
-            ],
-            [
-              "type-body-medium",
-              {
-                "font": "400 0.875rem/1.25rem "Roboto", sans-serif",
-                "letter-spacing": "0.015625rem",
-              },
-            ],
-            [
-              "type-body-small",
-              {
-                "font": "400 0.75rem/1rem "Roboto", sans-serif",
-                "letter-spacing": "0.025rem",
-              },
-            ],
-            [
-              "type-label-large",
-              {
-                "font": "500 0.875rem/1.25rem "Roboto", sans-serif",
-                "letter-spacing": "0.00625rem",
-              },
-            ],
-            [
-              "type-label-medium",
-              {
-                "font": "500 0.75rem/1rem "Roboto", sans-serif",
-                "letter-spacing": "0.03125rem",
-              },
-            ],
-            [
-              "type-label-small",
-              {
-                "font": "500 0.6875rem/1rem "Roboto", sans-serif",
-                "letter-spacing": "0.03125rem",
-              },
-            ],
-            [
               "elevation-0",
               {
                 "box-shadow": "none",
@@ -161,6 +56,25 @@ describe('preset', () => {
                 "box-shadow": "0px 4px 4px 0px color-mix(in srgb, rgb(var(--md-sys-colors-shadow, #000000)) 30%, transparent), 0px 8px 12px 6px color-mix(in srgb, rgb(var(--md-sys-colors-shadow, #000000)) 15%, transparent)",
               },
             ],
+          ],
+          "shortcuts": [
+            {
+              "type-body-large": "text-4 leading-6 tracking-0.5px font-400 font-plain",
+              "type-body-medium": "text-3.5 leading-5 tracking-0.25px font-400 font-plain",
+              "type-body-small": "text-3 leading-4 tracking-0.4px font-400 font-plain",
+              "type-display-large": "text-57px leading-16 tracking--0.25px font-400 font-brand",
+              "type-display-medium": "text-45px leading-13 tracking-0 font-400 font-brand",
+              "type-display-small": "text-9 leading-11 tracking-0 font-400 font-brand",
+              "type-headline-large": "text-8 leading-10 tracking-0 font-400 font-brand",
+              "type-headline-medium": "text-7 leading-9 tracking-0 font-400 font-brand",
+              "type-headline-small": "text-6 leading-8 tracking-0 font-400 font-brand",
+              "type-label-large": "text-3.5 leading-5 tracking-0.1px font-500 font-plain",
+              "type-label-medium": "text-3 leading-4 tracking-0.5px font-500 font-plain",
+              "type-label-small": "text-11px leading-4 tracking-0.5px font-500 font-plain",
+              "type-title-large": "text-5.5 leading-7 tracking-0 font-400 font-brand",
+              "type-title-medium": "text-4 leading-6 tracking-0.15px font-500 font-plain",
+              "type-title-small": "text-3.5 leading-5 tracking-0.1px font-500 font-plain",
+            },
           ],
           "theme": {
             "colors": {
@@ -213,6 +127,10 @@ describe('preset', () => {
               "tertiary-container": "rgb(var(--md-sys-colors-tertiary-container))",
               "tertiary-fixed": "rgb(var(--md-sys-colors-tertiary-fixed))",
               "tertiary-fixed-dim": "rgb(var(--md-sys-colors-tertiary-fixed-dim))",
+            },
+            "fontFamily": {
+              "brand": ""Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif",
+              "plain": ""Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif",
             },
           },
         }

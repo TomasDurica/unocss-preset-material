@@ -1,4 +1,4 @@
-﻿import { type Preset, type Rule } from '@unocss/core'
+﻿import { type Preset } from '@unocss/core'
 import { createPaletteTones, type ExtendedColorsOptions, type PaletteOptions } from './colors'
 import {
   defaultExtendedColorCssVariablePrefix,
@@ -9,7 +9,7 @@ import {
   type ThemeOptions,
 } from './themes'
 import { createShapeRule, type ShapesOptions } from './shapes'
-import { createTypographyRules, type TypographyOptions } from './typography'
+import { createTypographyShortcuts, generateTypographyFontFamilies, type TypographyOptions } from './typography'
 import { createElevationRules } from './elevation'
 
 export interface PresetMaterialOptions<TExtendedColors extends string = never> {
@@ -43,22 +43,18 @@ export const presetMaterial = <TExtendedColors extends string = never>({
 
   const paletteTones = createPaletteTones(extendedColors, paletteOptions)
 
-  const rules = [] as Rule[]
-
-  if (shapes) {
-    rules.push(createShapeRule(typeof shapes === 'boolean' ? undefined : shapes))
-  }
-
-  if (typography) {
-    rules.push(...createTypographyRules(typeof typography === 'boolean' ? undefined : typography))
-  }
-
-  if (elevation) {
-    rules.push(...createElevationRules(systemColorCssVariablePrefix))
-  }
-
   return {
     name: 'unocss-preset-material',
+
+    rules: [
+      ...(shapes ? [createShapeRule(typeof shapes === 'boolean' ? undefined : shapes)] : []),
+      ...(elevation ? createElevationRules(systemColorCssVariablePrefix) : []),
+    ],
+
+    shortcuts: [
+      ...(typography ? [createTypographyShortcuts(typeof typography === 'boolean' ? undefined : typography)] : []),
+    ],
+
     theme: {
       colors: generateThemeColors(
         colorPrefix,
@@ -68,8 +64,9 @@ export const presetMaterial = <TExtendedColors extends string = never>({
         paletteColorCssVariablePrefix,
         paletteTones,
       ),
+      fontFamily: typography ? generateTypographyFontFamilies() : {},
     },
-    rules,
+
     preflights: themes.map((theme) =>
       generatePreflights(
         theme,
